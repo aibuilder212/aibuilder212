@@ -1,16 +1,25 @@
-## Hi there 👋
+# 👋 Hey, I'm Shane
 
-<!--
-**aibuilder212/aibuilder212** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## What I'm building
+- AI agents and automation workflows (n8n, APIs)
+- Trading systems and market signal tools
+- Open-source AI education for non-FAANG builders
 
-Here are some ideas to get you started:
+## Stack
+- **AI/ML:** Vertex AI, OpenAI, Anthropic APIs
+- **Automation:** n8n (lifetime master license), Python, JavaScript
+- **Cloud:** GCP ($1k credits), Azure, NVIDIA compute
+- **Tools:** GitHub Copilot, Perplexity, Discord bots
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Current focus
+- Building "Git Octo" presence through open-source contributions
+- Google Cloud certifications
+- Shipping n8n workflow templates
+
+## Where to find me
+- 🎓 SUNY Dutchess (CS & AI)
+- 📍 Poughkeepsie, NY
+- 💬 Open to collaboration on AI safety, automation, and education projects
+
+---
+*"AI for real people, not just hype."*
