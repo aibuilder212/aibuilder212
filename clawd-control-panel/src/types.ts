@@ -62,3 +62,27 @@ export interface RenameConversationResponse {
 export interface DeleteConversationResponse {
   deleted: boolean
 }
+
+export interface TradeQuoteRequest {
+  inputMint: string
+  outputMint: string
+  amount: string
+  slippageBps?: number
+}
+
+export interface TradeQuoteResponse {
+  quote: unknown
+}
+
+export interface TradeExecuteRequest {
+  userPublicKey: string
+  quoteResponse: Record<string, unknown>
+}
+
+export interface TradeExecuteResponse {
+  result: Record<string, unknown>
+}
+
+export interface StrategyStepResponse {
+  result: Record<string, unknown>
+}
