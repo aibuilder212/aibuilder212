@@ -6,6 +6,11 @@ import type {
   ListMessagesResponse,
   RenameConversationResponse,
   SendMessageResponse,
+  StrategyStepResponse,
+  TradeExecuteRequest,
+  TradeExecuteResponse,
+  TradeQuoteRequest,
+  TradeQuoteResponse,
 } from '../types'
 
 const gatewayUrl = import.meta.env.VITE_GATEWAY_URL
@@ -141,5 +146,49 @@ export const clawdClient = {
     }
 
     return (await response.json()) as SendMessageResponse
+  },
+
+  async fetchTradeQuote(payload: TradeQuoteRequest) {
+    ensureConfig()
+    const response = await fetch(buildUrl('/trades/quote'), {
+      method: 'POST',
+      headers: jsonHeaders,
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch trade quote.')
+    }
+
+    return (await response.json()) as TradeQuoteResponse
+  },
+
+  async executeTrade(payload: TradeExecuteRequest) {
+    ensureConfig()
+    const response = await fetch(buildUrl('/trades/execute'), {
+      method: 'POST',
+      headers: jsonHeaders,
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to execute trade.')
+    }
+
+    return (await response.json()) as TradeExecuteResponse
+  },
+
+  async runStrategyStep() {
+    ensureConfig()
+    const response = await fetch(buildUrl('/trades/strategy-step'), {
+      method: 'POST',
+      headers: jsonHeaders,
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to run strategy step.')
+    }
+
+    return (await response.json()) as StrategyStepResponse
   },
 }
