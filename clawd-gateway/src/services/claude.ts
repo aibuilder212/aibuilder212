@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import type { TextBlock } from '@anthropic-ai/sdk/resources/messages.js';
 import type { Message } from '../db/database.js';
 
 const anthropic = new Anthropic({
@@ -42,8 +43,8 @@ export async function sendMessageToClaude(
 
     // Extract text content from response
     const content = response.content
-      .filter(block => block.type === 'text')
-      .map(block => (block as any).text)
+      .filter((block): block is TextBlock => block.type === 'text')
+      .map(block => block.text)
       .join('');
 
     return {

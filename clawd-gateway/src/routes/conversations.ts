@@ -87,8 +87,19 @@ router.patch('/conversations/:conversationId', (req, res) => {
     }
 
     updateConversationTitle(conversationId, title);
-    
-    res.json({ success: true });
+
+    const updated = getConversationById(conversationId);
+    if (!updated) {
+      res.status(500).json({ error: 'Failed to retrieve updated conversation' });
+      return;
+    }
+    res.json({
+      conversation: {
+        id: updated.id,
+        title: updated.title,
+        updatedAt: updated.updated_at,
+      },
+    });
   } catch (error) {
     console.error('Error updating conversation:', error);
     res.status(500).json({ error: 'Failed to update conversation' });
