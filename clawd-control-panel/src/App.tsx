@@ -9,12 +9,16 @@ import type {
 } from './types'
 
 const defaultSettings: GatewaySettings = {
-  model: 'gpt-4o-mini',
+  model: 'claude-3-5-sonnet-20241022',
   systemPrompt: 'You are Clawd, a helpful automation assistant.',
   temperature: 0.4,
 }
 
-const modelOptions = ['gpt-4o-mini', 'gpt-4o', 'claude-3-opus']
+const modelOptions = [
+  'claude-3-5-sonnet-20241022',
+  'claude-3-5-haiku-20241022',
+  'claude-3-opus-20240229',
+]
 
 const createEmptyStatus = (): GatewayStatus => ({
   online: false,
