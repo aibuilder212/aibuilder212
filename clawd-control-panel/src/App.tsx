@@ -10,7 +10,7 @@ import type {
 
 const defaultSettings: GatewaySettings = {
   model: 'gpt-4o-mini',
-  systemPrompt: 'You are Clawd, a helpful automation assistant.',
+  systemPrompt: 'You are an assistant from AI Signal Factory, here to help with automation and intelligence.',
   temperature: 0.4,
 }
 
@@ -237,7 +237,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                Clawd Control Panel
+                AI Signal Factory
               </p>
               <h1 className="text-lg font-semibold">Conversations</h1>
             </div>
@@ -342,7 +342,7 @@ function App() {
             )}
             {messages.length === 0 && !isLoading && (
               <div className="rounded-lg border border-ink-800 bg-ink-900/60 p-6 text-sm text-slate-400">
-                Start the conversation by sending a message to Clawd.
+                Start the conversation by sending a message to AI Signal Factory.
               </div>
             )}
             {messages.map((message) => (
@@ -376,7 +376,7 @@ function App() {
                 className="min-h-[48px] flex-1 resize-none rounded-2xl border border-ink-700 bg-ink-900/60 px-4 py-3 text-sm text-slate-100 focus:border-brand-500 focus:outline-none"
                 placeholder={
                   activeConversationId
-                    ? 'Message Clawd...'
+                    ? 'Message AI Signal Factory...'
                     : 'Create or select a conversation to begin.'
                 }
                 value={draft}
