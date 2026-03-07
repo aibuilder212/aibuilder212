@@ -1,67 +1,25 @@
-# aibuilder212
+# 👋 Hey, I'm Shane
 
-This repository contains the Clawd Control Panel frontend and the Clawd Gateway backend.
+## What I'm building
+- AI agents and automation workflows (n8n, APIs)
+- Trading systems and market signal tools
+- Open-source AI education for non-FAANG builders
 
-## Local quick start (browser)
+## Stack
+- **AI/ML:** Vertex AI, OpenAI, Anthropic APIs
+- **Automation:** n8n (lifetime master license), Python, JavaScript
+- **Cloud:** GCP ($1k credits), Azure, NVIDIA compute
+- **Tools:** GitHub Copilot, Perplexity, Discord bots
 
-You need both the gateway API and the control panel UI running locally.
+## Current focus
+- Building "Git Octo" presence through open-source contributions
+- Google Cloud certifications
+- Shipping n8n workflow templates
 
-### 1) Start the gateway API
+## Where to find me
+- 🎓 SUNY Dutchess (CS & AI)
+- 📍 Poughkeepsie, NY
+- 💬 Open to collaboration on AI safety, automation, and education projects
 
-```bash
-cd clawd-gateway
-npm install
-cp .env.example .env
-```
-
-Update `.env` with:
-
-- `ANTHROPIC_API_KEY` (from Anthropic)
-- `GATEWAY_TOKEN` (any strong token)
-
-Then start the API server:
-
-```bash
-npm run dev
-```
-
-### 2) Start the control panel UI
-
-```bash
-cd clawd-control-panel
-npm install
-cp .env.example .env
-```
-
-Ensure `.env` contains:
-
-- `VITE_GATEWAY_URL=http://localhost:3001`
-- `VITE_GATEWAY_TOKEN` (same value as `GATEWAY_TOKEN`)
-
-Then start the UI:
-
-```bash
-npm run dev
-```
-
-Open <http://localhost:5173>.
-
-## Clawd Control Panel
-
-The production-ready React UI lives in [`clawd-control-panel`](./clawd-control-panel). It includes:
-
-- Real-time chat UI with multiple conversations
-- Conversation list with rename/delete controls
-- Status indicator for model/agent info
-- Settings modal persisted to local storage
-
-### Get started
-
-```bash
-cd clawd-control-panel
-npm install
-cp .env.example .env
-npm run dev
-```
-
-Then open <http://localhost:5173>.
+---
+*"AI for real people, not just hype."*
