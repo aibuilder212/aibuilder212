@@ -1,0 +1,5 @@
+# Never commit the real .env – it contains your API keys
+.env
+
+# Agent Zero persistent data
+usr/
