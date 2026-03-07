@@ -54,7 +54,7 @@ app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Clawd Gateway server running on port ${PORT}`);
+  console.log(`AI Signal Factory Gateway server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`CORS enabled for origins: ${allowedOrigins.join(', ')}`);
 });
