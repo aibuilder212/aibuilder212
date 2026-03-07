@@ -1,0 +1,14 @@
+services:
+  agent-zero:
+    image: agent0ai/agent-zero:latest
+    container_name: agent-zero
+    restart: unless-stopped
+    ports:
+      - "50001:80"
+    volumes:
+      # Mount your .env file with API keys and settings
+      - ./.env:/a0/.env
+      # Persist agent memory, files and work across container restarts
+      - ./usr:/a0/usr
+    env_file:
+      - .env

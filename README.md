@@ -46,6 +46,48 @@ npm run dev
 
 Open <http://localhost:5173>.
 
+## Agent Zero (Docker)
+
+The [`agent-zero`](./agent-zero) directory contains the configuration files needed to run [Agent Zero](https://github.com/agent0ai/agent-zero) in Docker with GPT-4, Gemini 3, and Groq.
+
+### Quick start
+
+```bash
+cd agent-zero
+cp .env.example .env
+```
+
+Open `.env` and fill in your three API keys:
+
+| Key | Provider | Where to get it |
+|-----|----------|-----------------|
+| `API_KEY_OPENAI` | GPT-4o | <https://platform.openai.com/api-keys> |
+| `API_KEY_GOOGLE` | Gemini 3 Flash | <https://aistudio.google.com/app/apikey> |
+| `API_KEY_GROQ` | Llama 3.3 70B | <https://console.groq.com/keys> |
+
+Also set `AUTH_LOGIN` and `AUTH_PASSWORD` to protect the web UI.
+
+Then start the container:
+
+```bash
+docker compose up -d
+```
+
+Open <http://localhost:50001> to access Agent Zero.
+
+### Model defaults
+
+| Role | Provider | Model |
+|------|----------|-------|
+| Chat | OpenAI | `gpt-4o` |
+| Utility | Google | `gemini-3-flash-preview` |
+| Browser | OpenAI | `gpt-4o` (vision) |
+| Embedding | HuggingFace | `all-MiniLM-L6-v2` (local) |
+
+To switch the chat model to Groq (`llama-3.3-70b-versatile`), uncomment the three `A0_SET_chat_model_*` Groq lines in your `.env` and comment out the OpenAI ones.
+
+---
+
 ## Clawd Control Panel
 
 The production-ready React UI lives in [`clawd-control-panel`](./clawd-control-panel). It includes:
