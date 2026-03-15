@@ -33,3 +33,8 @@ I’m always exploring how AI can remove friction from everyday work — from sm
 
 ## Always Open to Ideas
 If you’re experimenting with agents, automation, or AI-native workflows, I’m always down to connect, brainstorm, or collaborate.
+## What’s Next
+I’m exploring ways to push AI-native workflows further — from autonomous agents to tools that help builders move faster with less friction. Always experimenting, always shipping.
+
+## Let’s Build
+If you’re working on something interesting in AI, automation, or agent systems, I’m always open to connecting or collaborating.
