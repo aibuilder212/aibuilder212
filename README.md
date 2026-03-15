@@ -38,3 +38,13 @@ I’m exploring ways to push AI-native workflows further — from autonomous age
 
 ## Let’s Build
 If you’re working on something interesting in AI, automation, or agent systems, I’m always open to connecting or collaborating.
+## What I Believe In
+- Build with intention, not noise
+- Tools should create leverage, not complexity
+- AI should feel like a teammate, not a task you manage
+
+## Long-Term Direction
+Pushing toward systems that can reason, adapt, and collaborate — not just respond. Exploring how autonomous agents can support creators, founders, and builders in real workflows.
+
+## Stay Connected
+If you’re building in the AI space or experimenting with agents, reach out. I’m always open to new ideas, conversations, and collaborations.
