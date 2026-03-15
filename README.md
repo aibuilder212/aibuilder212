@@ -1,67 +1,35 @@
-# aibuilder212
+# Hey there, I'm aibuilder212 👋
+I'm a builder passionate about AI — experimenting with agents, automation, and whatever comes next.
 
-This repository contains the Clawd Control Panel frontend and the Clawd Gateway backend.
+## About Me
+- 🤖 Building with AI tools and APIs
+- 🛠️ Always experimenting with new ideas
+- 🚀 Turning concepts into working projects
 
-## Local quick start (browser)
+## What I'm Working On
+I build AI-powered tools and projects, exploring what's possible at the edge of automation and intelligence.
 
-You need both the gateway API and the control panel UI running locally.
+## Connect
+Feel free to check out my repositories and reach out if you want to collaborate!
 
-### 1) Start the gateway API
+## Skills
+- AI automation and agent workflows
+- API integrations and tool-building
+- Rapid prototyping and iteration
 
-```bash
-cd clawd-gateway
-npm install
-cp .env.example .env
-```
+## Current Focus
+Exploring ways to push AI agents toward more autonomous, reliable execution. Building small tools that solve real problems fast.
 
-Update `.env` with:
+## Vision
+Creating systems that think, act, and build alongside humans — not just respond.
 
-- `ANTHROPIC_API_KEY` (from Anthropic)
-- `GATEWAY_TOKEN` (any strong token)
+## Beyond the Code
+I’m always exploring how AI can remove friction from everyday work — from small automations to full agent systems that operate independently. I like building things that feel alive, adaptive, and useful.
 
-Then start the API server:
+## Philosophy
+- Build things that create leverage
+- Ship fast, refine later
+- Let curiosity lead the way
 
-```bash
-npm run dev
-```
-
-### 2) Start the control panel UI
-
-```bash
-cd clawd-control-panel
-npm install
-cp .env.example .env
-```
-
-Ensure `.env` contains:
-
-- `VITE_GATEWAY_URL=http://localhost:3001`
-- `VITE_GATEWAY_TOKEN` (same value as `GATEWAY_TOKEN`)
-
-Then start the UI:
-
-```bash
-npm run dev
-```
-
-Open <http://localhost:5173>.
-
-## Clawd Control Panel
-
-The production-ready React UI lives in [`clawd-control-panel`](./clawd-control-panel). It includes:
-
-- Real-time chat UI with multiple conversations
-- Conversation list with rename/delete controls
-- Status indicator for model/agent info
-- Settings modal persisted to local storage
-
-### Get started
-
-```bash
-cd clawd-control-panel
-npm install
-cp .env.example .env
-npm run dev
-```
-
-Then open <http://localhost:5173>.
+## Always Open to Ideas
+If you’re experimenting with agents, automation, or AI-native workflows, I’m always down to connect, brainstorm, or collaborate.
