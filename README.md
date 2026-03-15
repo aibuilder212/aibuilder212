@@ -7,7 +7,7 @@ I'm a builder passionate about AI — experimenting with agents, automation, and
 - 🚀 Turning concepts into working projects
 
 ## What I'm Working On
-I build AI-powered tools and projects, exploring what's possible at the edge of automation and intelligence.
+  I build AI-powered tools and projects, exploring what's possible at the edge of automation and intelligence.
 
 ## Connect
 Feel free to check out my repositories and reach out if you want to collaborate!
