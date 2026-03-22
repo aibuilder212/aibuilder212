@@ -31,6 +31,8 @@ const formatTimestamp = (value: string) =>
   })
 
 const buildTempLabel = (value: number) => `${value.toFixed(2)}`
+const formatJson = (value: unknown) =>
+  JSON.stringify(value, null, 2) ?? 'No data yet.'
 
 function App() {
   const [settings, setSettings] = useLocalStorage<GatewaySettings>(
@@ -46,6 +48,18 @@ function App() {
   const [error, setError] = useState<string>('')
   const [draft, setDraft] = useState('')
   const [showSettings, setShowSettings] = useState(false)
+  const [tradeInputMint, setTradeInputMint] = useState(
+    'So11111111111111111111111111111111111111112',
+  )
+  const [tradeOutputMint, setTradeOutputMint] = useState(
+    'EPjFWdd5AufqSSqeM2q6cUuTh2K7NY31R5QJ6s2tV8y',
+  )
+  const [tradeAmount, setTradeAmount] = useState('1000000')
+  const [tradeSlippageBps, setTradeSlippageBps] = useState('50')
+  const [tradeQuote, setTradeQuote] = useState<unknown | null>(null)
+  const [tradeExecution, setTradeExecution] = useState<unknown | null>(null)
+  const [strategyResult, setStrategyResult] = useState<unknown | null>(null)
+  const [isTrading, setIsTrading] = useState(false)
 
   const activeConversation = useMemo(
     () => conversations.find((item) => item.id === activeConversationId),
@@ -228,7 +242,63 @@ function App() {
     }
   }
 
+  const handleTradeQuote = async () => {
+    setError('')
+    setIsTrading(true)
+    try {
+      const response = await clawdClient.fetchTradeQuote({
+        inputMint: tradeInputMint.trim(),
+        outputMint: tradeOutputMint.trim(),
+        amount: tradeAmount.trim(),
+        slippageBps: tradeSlippageBps ? Number(tradeSlippageBps) : undefined,
+      })
+      setTradeQuote(response.quote)
+      setTradeExecution(null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Trade quote failed.')
+    } finally {
+      setIsTrading(false)
+    }
+  }
+
+  const handleTradeExecute = async () => {
+    if (!tradeQuote || typeof tradeQuote !== 'object') {
+      setError('Fetch a quote before executing a trade.')
+      return
+    }
+    setError('')
+    setIsTrading(true)
+    try {
+      const response = await clawdClient.executeTrade({
+        userPublicKey: 'YourWalletPublicKey',
+        quoteResponse: tradeQuote as Record<string, unknown>,
+      })
+      setTradeExecution(response.result)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Trade execution failed.')
+    } finally {
+      setIsTrading(false)
+    }
+  }
+
+  const handleStrategyStep = async () => {
+    setError('')
+    setIsTrading(true)
+    try {
+      const response = await clawdClient.runStrategyStep()
+      setStrategyResult(response.result)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Strategy step failed.')
+    } finally {
+      setIsTrading(false)
+    }
+  }
+
   const statusDot = status.online ? 'bg-emerald-400' : 'bg-rose-400'
+  const quoteSummary =
+    tradeQuote && typeof tradeQuote === 'object'
+      ? 'Quote ready'
+      : 'No quote yet'
 
   return (
     <div className="min-h-screen bg-ink-950 text-slate-100">
@@ -340,6 +410,111 @@ function App() {
                 {error}
               </div>
             )}
+            <div className="rounded-2xl border border-ink-800 bg-ink-900/60 p-6 shadow-card">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+                    Trading
+                  </p>
+                  <h3 className="text-lg font-semibold">Jupiter swap helper</h3>
+                  <p className="text-sm text-slate-400">
+                    {quoteSummary} · Strategy: {strategyResult ? 'Ran' : 'Idle'}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    className="rounded-lg border border-ink-700 px-3 py-2 text-sm text-slate-200 hover:border-brand-500 disabled:cursor-not-allowed"
+                    onClick={handleStrategyStep}
+                    disabled={isTrading}
+                    type="button"
+                  >
+                    {isTrading ? 'Running...' : 'Run strategy step'}
+                  </button>
+                  <button
+                    className="rounded-lg bg-brand-600 px-3 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-ink-700"
+                    onClick={handleTradeQuote}
+                    disabled={isTrading}
+                    type="button"
+                  >
+                    {isTrading ? 'Fetching...' : 'Get quote'}
+                  </button>
+                  <button
+                    className="rounded-lg border border-emerald-500/50 px-3 py-2 text-sm text-emerald-200 hover:border-emerald-300 disabled:cursor-not-allowed disabled:border-ink-700 disabled:text-slate-400"
+                    onClick={handleTradeExecute}
+                    disabled={isTrading || !tradeQuote}
+                    type="button"
+                  >
+                    Execute (placeholder)
+                  </button>
+                </div>
+              </div>
+              <div className="mt-6 grid gap-4 lg:grid-cols-2">
+                <div className="space-y-4">
+                  <label className="block text-xs uppercase tracking-[0.2em] text-slate-400">
+                    Input mint
+                    <input
+                      className="mt-2 w-full rounded-xl border border-ink-700 bg-ink-950/80 px-3 py-2 text-sm text-slate-100"
+                      value={tradeInputMint}
+                      onChange={(event) => setTradeInputMint(event.target.value)}
+                    />
+                  </label>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-slate-400">
+                    Output mint
+                    <input
+                      className="mt-2 w-full rounded-xl border border-ink-700 bg-ink-950/80 px-3 py-2 text-sm text-slate-100"
+                      value={tradeOutputMint}
+                      onChange={(event) => setTradeOutputMint(event.target.value)}
+                    />
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <label className="block text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Amount (raw)
+                      <input
+                        className="mt-2 w-full rounded-xl border border-ink-700 bg-ink-950/80 px-3 py-2 text-sm text-slate-100"
+                        value={tradeAmount}
+                        onChange={(event) => setTradeAmount(event.target.value)}
+                      />
+                    </label>
+                    <label className="block text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Slippage (bps)
+                      <input
+                        className="mt-2 w-full rounded-xl border border-ink-700 bg-ink-950/80 px-3 py-2 text-sm text-slate-100"
+                        value={tradeSlippageBps}
+                        onChange={(event) =>
+                          setTradeSlippageBps(event.target.value)
+                        }
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Quote response
+                    </p>
+                    <pre className="mt-2 max-h-48 overflow-auto rounded-xl border border-ink-700 bg-ink-950/80 p-3 text-xs text-slate-200">
+                      {formatJson(tradeQuote ?? {})}
+                    </pre>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Strategy result
+                    </p>
+                    <pre className="mt-2 max-h-36 overflow-auto rounded-xl border border-ink-700 bg-ink-950/80 p-3 text-xs text-slate-200">
+                      {formatJson(strategyResult ?? {})}
+                    </pre>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Execution result
+                    </p>
+                    <pre className="mt-2 max-h-36 overflow-auto rounded-xl border border-ink-700 bg-ink-950/80 p-3 text-xs text-slate-200">
+                      {formatJson(tradeExecution ?? {})}
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
             {messages.length === 0 && !isLoading && (
               <div className="rounded-lg border border-ink-800 bg-ink-900/60 p-6 text-sm text-slate-400">
                 Start the conversation by sending a message to Clawd.
